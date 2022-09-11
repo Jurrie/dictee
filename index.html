@@ -43,24 +43,18 @@ const HomePage = {
 </p>
 </div>`,
   data() {
-    return {
-      currentYear: new Date().getFullYear(),
-      currentWeek: new Date().getWeek()
-    }
-  }
-}
-
-const ThisWeekPage = {
-  setup() {
     const date = new Date();
-    router.push('/woorden/' + date.getFullYear() + '/' + date.getWeek());
+    return {
+      currentYear: date.getFullYear(),
+      currentWeek: date.getWeek()
+    }
   }
 }
 
 const WordsPage = {
   props: ['week', 'year'],
   template: `
-<h1>Dictee voor week {{ week }} van {{ year }}</h1>
+<h1>Dictee week {{ week }}</h1>
 <template v-for="(word, index) in getWords()">
   <p>
     <span>Woord {{ word.indexUserReadible }}: </span>
@@ -86,7 +80,11 @@ const WordsPage = {
 
 const routes = [
   { path: '/', component: HomePage },
-  { path: '/dezeweek', component: ThisWeekPage },
+  { path: '/dezeweek', redirect: to => {
+      const date = new Date();
+      return { path: '/woorden/' + date.getFullYear() + '/'+ date.getWeek() }
+    }
+  },
   { path: '/woorden/:year/:week', component: WordsPage, props: true },
 ]
 
