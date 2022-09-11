@@ -1,0 +1,67 @@
+@font-face {
+ font-family: Quicksand;
+ src: url('Quicksand-Bold.woff2') format("woff2"),
+      url('Quicksand-Bold.woff') format("woff");
+ font-weight: 700;
+ font-style: normal;
+ font-display: swap;
+}
+@font-face {
+ font-family: Quicksand;
+ src: url('Quicksand-SemiBold.woff2') format("woff2"),
+      url('Quicksand-SemiBold.woff') format("woff");
+ font-weight: 600;
+ font-style: normal;
+ font-display: swap;
+}
+@font-face {
+ font-family: Quicksand;
+ src: url('Quicksand-Medium.woff2') format("woff2"),
+      url('Quicksand-Medium.woff') format("woff");
+ font-weight: 500;
+ font-style: normal;
+ font-display: swap;
+}
+@font-face {
+ font-family: Quicksand;
+ src: url('Quicksand-Regular.woff2') format("woff2"),
+      url('Quicksand-Regular.woff') format("woff");
+ font-weight: 400;
+ font-style: normal;
+ font-display: swap;
+}
+@font-face {
+  font-family: Quicksand;
+  src: url('Quicksand-Light.woff2') format("woff2"),
+       url('Quicksand-Light.woff') format("woff");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+@font-face {
+  font-family: Fredoka One;
+  src: url('FredokaOne-Regular.woff2') format("woff2"),
+       url('FredokaOne-Regular.woff') format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+h1 {
+ font-family:Fredoka One,Arial,serif;
+ font-size: 2.8125rem;
+ font-weight: 700;
+ margin-bottom: .7em;
+ line-height: 1.2;
+ color: #e40039;
+}
+
+html {
+  font-size: 2em;
+  text-align: center;
+  margin: 10px 100px;
+  font-family:Quicksand,Arial,sans-serif;
+}
+
