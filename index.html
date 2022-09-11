@@ -95,11 +95,7 @@ const WordsPage = {
 
 const routes = [
   { path: '/', component: HomePage },
-  { path: '/dezeweek', redirect: to => {
-      const date = new Date();
-      return { path: '/woorden/' + date.getFullYear() + '/'+ date.getWeek() }
-    }
-  },
+  { path: '/dezeweek', component: WordsPage, props: { year: new Date().getFullYear(), week: new Date().getWeek() } },
   { path: '/woorden/:year/:week', component: WordsPage, props: true },
 ]
 
