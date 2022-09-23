@@ -39,6 +39,7 @@
     </script>
     <script src="assets/vue.global.js"></script>
     <script src="assets/vue-router.global.js"></script>
+    <script src="assets/axios.min.js"></script>
     
     <div id="app">
       <router-view/>
@@ -81,7 +82,7 @@ const WordsPage = {
   methods: {
     getWords() {
       var words = [];
-      for (i = 0; i < 10; i++) {
+      for (i = 0; i < this.numberOfWords; i++) {
         words.push({
           indexUserReadible: i + 1,
           url: 'woorden/' + this.year + '/' + this.week + '/' + i + '.mp3'
@@ -89,6 +90,18 @@ const WordsPage = {
       }
       return words;
     }
+  },
+  data() {
+    return {
+      numberOfWords: []
+    }
+  },
+  mounted() {
+    axios
+      .get('woorden/' + this.year + '/' + this.week + '/index.json')
+      .then((response) => {
+        this.numberOfWords = response.data.numberOfWords;
+    })
   }
 }
 
