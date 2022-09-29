@@ -54,20 +54,30 @@ const HomePage = {
   <br />
   Veel succes!<br />
   <br />
-  <router-link to="/dezeweek">Start het dictee van deze week</router-link>
+  <template v-for="(group) in this.groups">
+  <router-link :to="'/' + group.urlName + '/dezeweek'">Dictee {{ group.name }}</router-link><br />
+  </template>
 </p>
 </div>`,
   data() {
     const date = new Date();
     return {
       currentYear: date.getFullYear(),
-      currentWeek: date.getWeek()
+      currentWeek: date.getWeek(),
+      groups: [{}]
     }
+  },
+  mounted() {
+    axios
+      .get('index.json')
+      .then((response) => {
+        this.groups = response.data.groups;
+    })
   }
 }
 
 const WordsPage = {
-  props: ['week', 'year'],
+  props: ['group', 'week', 'year'],
   template: `
 <h1>Dictee week {{ week }}</h1>
 <template v-for="(word, index) in getWords()">
@@ -85,7 +95,7 @@ const WordsPage = {
       for (i = 0; i < this.numberOfWords; i++) {
         words.push({
           indexUserReadible: i + 1,
-          url: 'woorden/' + this.year + '/' + this.week + '/' + i + '.mp3'
+          url: 'woorden/' + this.group + '/' + this.year + '/' + this.week + '/' + i + '.mp3'
         });
       }
       return words;
@@ -98,7 +108,7 @@ const WordsPage = {
   },
   mounted() {
     axios
-      .get('woorden/' + this.year + '/' + this.week + '/index.json')
+      .get('woorden/' + this.group + '/' + this.year + '/' + this.week + '/index.json')
       .then((response) => {
         this.numberOfWords = response.data.numberOfWords;
     })
@@ -107,8 +117,8 @@ const WordsPage = {
 
 const routes = [
   { path: '/', component: HomePage },
-  { path: '/dezeweek', component: WordsPage, props: { year: new Date().getFullYear(), week: new Date().getWeek() } },
-  { path: '/woorden/:year/:week', component: WordsPage, props: true },
+  { path: '/:group/dezeweek', component: WordsPage, props: route => ({ group: route.params.group, year: new Date().getFullYear(), week: new Date().getWeek() }) },
+  { path: '/:group/woorden/:year/:week', component: WordsPage, props: true },
 ]
 
 const router = VueRouter.createRouter({
